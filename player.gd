@@ -34,6 +34,10 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		#setting the basis will affect the rotation of the node
 		$Pivot.basis = Basis.looking_at(direction)
+		
+		$AnimationPlayer.speed_scale =4
+	else:
+		$AnimationPlayer.speed_scale =1
 	
 	#Ground speed
 	target_velocity.x = direction.x * speed
@@ -72,6 +76,10 @@ func _physics_process(delta):
 	#moving character
 	velocity = target_velocity
 	move_and_slide()
+	
+	var jump_arc_rotation = PI / 6 * velocity.y /jump_impulse
+
+	$Pivot.rotation.x = jump_arc_rotation
 
 func die():
 	hit.emit()
